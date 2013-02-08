@@ -270,7 +270,7 @@ int main() {
 
   srand(time(NULL)+getpid());
 
-  decks=4;
+  decks=6;
 
   shuffle(400*decks);
   nullifyplayers();
