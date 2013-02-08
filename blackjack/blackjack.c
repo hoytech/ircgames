@@ -226,7 +226,11 @@ void process() {
           continue;
         }
 
-        if (segs[4] == NULL || !isdigit(*segs[4])) continue;
+        if (segs[4] == NULL || !isdigit(*segs[4])) {
+          snprintf(buf, sizeof(buf), "PRIVMSG %s :\0039\00311%s\0039, you must supply an amount to buy insurance.\n", source, nick);
+          write(msock, buf, strlen(buf));
+          continue;
+        }
 
         tval = atoi(segs[4]);
 
