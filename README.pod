@@ -1,0 +1,17 @@
+=encoding utf-8
+
+=head1 NAME
+
+ircgames - casino games over irc
+
+=head1 DESCRIPTION
+
+These are some old irc bots that play casino games. It isn't exactly good code but they can still be somewhat fun to play.
+
+=head2 blackjack
+
+H17 6-deck blackjack. splitting not implemented
+
+=head2 poker
+
+Texas hold-em poker. broken/not finished
