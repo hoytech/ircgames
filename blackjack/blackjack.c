@@ -260,6 +260,10 @@ void process() {
         continue;
       }
 
+      if (strcmp(segs[3]+1, "!stats")==0) {
+        procstats(source, nick);
+      }
+
     }
 
   }

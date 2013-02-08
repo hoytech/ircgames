@@ -533,3 +533,21 @@ void makebet(char *source, char *nm, int bet) {
   return;
 
 }
+
+
+void procstats(char *source, char *nm) {
+  struct playerstruct *tp;
+  char buf[1024];
+
+  tp = players;
+  while (tp != NULL) {
+    if (tp->money < 0) {
+      snprintf(buf, sizeof(buf), "PRIVMSG %s :\0039\00313%s\0039: \0034$%d\0039\n", CHANNEL, tp->name, tp->money);
+      write(msock, buf, strlen(buf));
+    } else {
+      snprintf(buf, sizeof(buf), "PRIVMSG %s :\0039\00313%s\0039: $%d\n", CHANNEL, tp->name, tp->money);
+      write(msock, buf, strlen(buf));
+    }
+    tp = tp->next;
+  }
+}
