@@ -250,6 +250,8 @@ void payoff() {
   char buf[1024];
   struct playerstruct *tp;
   int dealerval, playerval;
+  int i, hilo_count=0, hiopt_count=0;
+  double hilo_true, hiopt_true;
 
   snprintf(buf, sizeof(buf), "PRIVMSG %s :\0039--PLAYING TIME IS \0034UP\0039--\n", CHANNEL);
   write(msock, buf, strlen(buf));
@@ -292,6 +294,20 @@ void payoff() {
       
     tp = tp->next;
   }
+
+  for(i=0; i<currcard; i++) {
+    if (shoe[i] <= 6) hilo_count++;
+    if (shoe[i] >= 10) hilo_count--;
+
+    if (shoe[i] >= 3 && shoe[i] <= 6) hiopt_count++;
+    if (shoe[i] >= 10 && shoe[i] <= 13) hiopt_count--;
+  }
+
+  hilo_true = 1.0 * hilo_count / (((decks * 52) - currcard) / 52);
+  hiopt_true = 1.0 * hiopt_count / (((decks * 52) - currcard) / 52);
+
+  snprintf(buf, sizeof(buf), "PRIVMSG %s :\00310HI-LO: %d (%.3g) / HI-OPT: %d (%.3g)\n", CHANNEL, hilo_count, hilo_true, hiopt_count, hiopt_true);
+  write(msock, buf, strlen(buf));
 
 }
 
